@@ -176,6 +176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 461618}
   - component: {fileID: 6492726}
+  - component: {fileID: 4681470208547096230}
   m_Layer: 0
   m_Name: PalmTreeSingleStraightTwoSided
   m_TagString: Untagged
@@ -222,3 +223,24 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300002, guid: ef5cd9cdbb80e6849a5f7dd239d56605, type: 3}
+--- !u!65 &4681470208547096230
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161618}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 11.333661, z: 1}
+  m_Center: {x: 0, y: 5.1668305, z: 0}

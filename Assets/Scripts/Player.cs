@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
+    public float wood;
 
     void Start()
     {
