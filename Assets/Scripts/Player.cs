@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
     public float wood;
+    public float health = 10;
+    public float hunger = 10;
 
     void Start()
     {
