@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa6747702e1275d49826be527e1629d6, type: 3}
   m_Name: SmallRock
   m_EditorClassIdentifier: 
-  id: 0
-  itemName: 
-  value: 0
-  icon: {fileID: 0}
+  id: 1
+  itemName: Small Rock
+  value: 10
+  icon: {fileID: 21300000, guid: 04509bd69c8fb4a4ba80d0b0e67e7f43, type: 3}
