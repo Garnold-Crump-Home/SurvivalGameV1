@@ -2,7 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AllItem : MonoBehaviour
+public enum SlotTag {None, Head, Chest, Legs, Feet }
+
+[CreateAssetMenu(menuName ="Scriptable Objects/Item")]
+public class Item : ScriptableObject
 {
-    public Inventory item;
+    public GameObject gameObject;
+    public SlotTag itemTag;
+
+    [Header("If the item can be equipped")]
+    public GameObject equimentPrefab;
 }
