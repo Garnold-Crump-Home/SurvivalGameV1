@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -11,14 +12,15 @@ public class Player : MonoBehaviour
 
     private CharacterController controller;
     private Vector3 velocity;
-    private bool isGrounded;
+    public bool isGrounded;
 
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
     public float wood;
-    public float health = 10;
+    public float health = 20;
     public float hunger = 10;
+    public Text healthText;
 
     void Start()
     {
@@ -26,7 +28,9 @@ public class Player : MonoBehaviour
     }
 
     void Update()
-    {
+    { float roundedHealth  = Mathf.Round(health);
+        healthText.text = roundedHealth.ToString();
+       
         // Check if grounded
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
