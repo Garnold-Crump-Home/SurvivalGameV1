@@ -11,6 +11,8 @@ public class WaterFog : MonoBehaviour
     public Text UnderWaterText;
     public float Percent = 100;
     public bool waterDrown;
+    public float swimSpeed = 5;
+
 
     // Start is called before the first frame update
     private void Start()
@@ -21,7 +23,6 @@ public class WaterFog : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (Player) { RenderSettings.fog = true; }
-        Debug.Log("Player has Enterd");
         UnderWaterText.enabled=true;
        
         waterDrown = true;
@@ -41,18 +42,14 @@ public class WaterFog : MonoBehaviour
     }
     private void Update()
     {
-       
+
+      
         float roundedPercent = Mathf.Round(Percent);
         UnderWaterText.text = roundedPercent.ToString() + "%";
         if(waterDrown == true)
         {
             Percent -= Time.deltaTime * 5;
-            if (Input.GetKey(KeyCode.Space))
-            {
-
-                Player.transform.Translate(0, 10 * Time.deltaTime, 0);
-                playerScript.gravity = -10;
-            }
+           
         }
         
     }
