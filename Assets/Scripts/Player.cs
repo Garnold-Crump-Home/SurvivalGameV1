@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
-    private bool isGrounded;
+    public bool isGrounded;
 
     [Header("Stats")]
     public float wood;
@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
 
         if (isGrounded && velocity.y < 0)
         {
-            velocity.y = -2f;
+            velocity.y = -2f; // Keeps grounded player "stuck" to ground
         }
 
         // Movement input
@@ -58,17 +58,20 @@ public class Player : MonoBehaviour
         if (isInWater)
         {
             // Swimming movement
+            move.y = 0;
             if (Input.GetKey(KeyCode.Space))
             {
                 move.y = swimUpSpeed;
             }
 
             controller.Move(move * swimSpeed * Time.deltaTime);
-            velocity = Vector3.zero; // Disable gravity
+
+            // Reset gravity effects while swimming
+            velocity = Vector3.zero;
         }
         else
         {
-            // Normal movement
+            // Ground / Air movement
             controller.Move(move * speed * Time.deltaTime);
 
             // Jumping
@@ -77,27 +80,29 @@ public class Player : MonoBehaviour
                 velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             }
 
-            // Apply gravity
+            // Apply gravity over time
             velocity.y += gravity * Time.deltaTime;
+
+            // Apply vertical movement from gravity or jump
             controller.Move(velocity * Time.deltaTime);
         }
     }
 
-    // Detect entering water
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Water"))
         {
             isInWater = true;
+            velocity = Vector3.zero; // reset vertical velocity when entering water
         }
     }
 
-    // Detect exiting water
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Water"))
         {
             isInWater = false;
+            // Don't reset velocity here — gravity should resume naturally
         }
     }
 }

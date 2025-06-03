@@ -6,7 +6,7 @@ public class SunCycle : MonoBehaviour
     public Gradient lightColor;             // Gradient for color transitions
     public AnimationCurve lightIntensity;   // Curve for intensity transitions
     public float fullDayLength = 1200f;     // 1200 seconds = 20 minutes
-    private float timeOfDay = 0.5f;        // Start at sunrise (0.25 = 6am)
+    private float timeOfDay = 0.25f;        // Start at sunrise (0.25 = 6am)
 
     void Start()
     {
