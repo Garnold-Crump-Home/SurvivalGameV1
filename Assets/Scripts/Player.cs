@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+      
     }
 
     void Update()
@@ -44,9 +45,11 @@ public class Player : MonoBehaviour
         // Ground check
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
+    
         if (isGrounded && velocity.y < 0)
         {
-            velocity.y = -2f; // Keeps grounded player "stuck" to ground
+            // Strongly stick player to ground, avoid floating due to small velocity
+            velocity.y = -2f;
         }
 
         // Movement input
@@ -57,21 +60,25 @@ public class Player : MonoBehaviour
 
         if (isInWater)
         {
-            // Swimming movement
             move.y = 0;
+
             if (Input.GetKey(KeyCode.Space))
             {
                 move.y = swimUpSpeed;
             }
+            else
+            {
+                // Apply slight downward force to simulate sinking/buoyancy
+                move.y = -0.5f;  // tweak this value as needed
+            }
 
             controller.Move(move * swimSpeed * Time.deltaTime);
 
-            // Reset gravity effects while swimming
-            velocity = Vector3.zero;
+            // Don't reset velocity to zero, or use velocity only for jumping/falling out of water
         }
         else
         {
-            // Ground / Air movement
+            // Move horizontally
             controller.Move(move * speed * Time.deltaTime);
 
             // Jumping
@@ -80,10 +87,10 @@ public class Player : MonoBehaviour
                 velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             }
 
-            // Apply gravity over time
+            // Apply gravity every frame (will pull player down if not grounded)
             velocity.y += gravity * Time.deltaTime;
 
-            // Apply vertical movement from gravity or jump
+            // Apply vertical movement (jump/fall)
             controller.Move(velocity * Time.deltaTime);
         }
     }
@@ -93,16 +100,20 @@ public class Player : MonoBehaviour
         if (other.CompareTag("Water"))
         {
             isInWater = true;
-            velocity = Vector3.zero; // reset vertical velocity when entering water
+            velocity = Vector3.zero; // reset vertical velocity
+
+            // Snap player y position to water surface
+            Vector3 pos = transform.position;
+            pos.y = other.bounds.min.y + 0.1f;  // just a bit above water bottom
+            transform.position = pos;
         }
-    }
+        }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Water"))
         {
             isInWater = false;
-            // Don't reset velocity here — gravity should resume naturally
         }
     }
 }
